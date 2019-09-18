@@ -1,5 +1,6 @@
 ﻿using System;
 using CorEscuela.Entities;
+using CorEscuela.Entities.Enum;
 
 namespace CorEscuela
 {
@@ -7,10 +8,10 @@ namespace CorEscuela
     {
         static void Main(string[] args)
         {
-            var escuela = new Escuela();
-            escuela.Nombre = "Platzi Escuela";
+            var escuela = new Escuela("Escuela Platzi",2006);
             
-            Console.WriteLine("Hello World!");
+            escuela.TipoEscuela = TipoEscuelas.Primaria;
+            Console.WriteLine(escuela);
         }
     }
 }

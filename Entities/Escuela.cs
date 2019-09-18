@@ -1,4 +1,6 @@
-namespace CoreEscuela.Entities
+using CorEscuela.Entities.Enum;
+
+namespace CorEscuela.Entities
 {
     class Escuela
     {
@@ -8,7 +10,7 @@ namespace CoreEscuela.Entities
         {
             get{ return nombre;}
 
-            set{ nombre = value.toUpper();}
+            set{ nombre = value.ToUpper();}
         }
 
         public int AnioDeCreacion{ get; set; }
@@ -17,10 +19,18 @@ namespace CoreEscuela.Entities
 
         public string Ciudad { get; set; }
 
+
+        public TipoEscuelas TipoEscuela { get; set; }
+
         public Escuela(string nombre, int anio)
         {
             this.nombre = nombre;
             this.AnioDeCreacion = anio;
+    
+        }
+
+        public override string ToString(){
+            return $"Nombre{Nombre} , Tipo{TipoEscuela} \n Pais{Pais}, Ciudad{Ciudad}";
         }
             
 
