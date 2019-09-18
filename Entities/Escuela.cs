@@ -22,15 +22,18 @@ namespace CorEscuela.Entities
 
         public TipoEscuelas TipoEscuela { get; set; }
 
-        public Escuela(string nombre, int anio)
+        public Escuela(string nombre, int anio) =>(Nombre, AnioDeCreacion) = (nombre, anio);
+
+        public Escuela(string nombre, int anio, TipoEscuelas tipo, string pais="", string ciudad="")
         {
-            this.nombre = nombre;
-            this.AnioDeCreacion = anio;
+            (Nombre, AnioDeCreacion)=(nombre, anio);
+            Pais = pais;
+            Ciudad = ciudad;
     
         }
 
         public override string ToString(){
-            return $"Nombre{Nombre} , Tipo{TipoEscuela} \n Pais{Pais}, Ciudad{Ciudad}";
+            return $"Nombre: \"{Nombre}\" , Tipo: {TipoEscuela} \n Pais: {System.Environment.NewLine} {Pais}, Ciudad: {Ciudad}";
         }
             
 
