@@ -1,7 +1,7 @@
 ﻿using System;
 using CorEscuela.Entities;
 using CorEscuela.Entities.Enum;
-
+using static System.Console;
 namespace CorEscuela
 {
     class Program
@@ -10,50 +10,28 @@ namespace CorEscuela
         {
             var escuela = new Escuela("Escuela Platzi", 2006, TipoEscuelas.PreEscolar, pais: "Colombia", ciudad: "Bogotá");
 
-            var arregloCursos = new Curso[3];
-
-            arregloCursos[0] = new Curso()
-            {
-                Nombre = "101"
+            escuela.Cursos = new Curso[]{
+                new Curso(){Nombre = "101"},
+                new Curso(){Nombre = "201"},
+                new Curso(){Nombre = "301"}
             };
+            ImprimirCursosEscuela(escuela);
+        }
 
-            var curso1 = new Curso()
-            {
-                Nombre = "101",
-            };
+        private static void ImprimirCursosEscuela(Escuela escuela)
+        {
+            WriteLine("====================");
+            WriteLine("Cursos de la Escuela");
+            WriteLine("====================");
 
-            var curso2 = new Curso()
-            {
-                Nombre = "201",
-            };
-            arregloCursos[1] = curso2;
+            if (escuela?.Cursos!=null){
+                    foreach (var curso in escuela.Cursos)
+                    {
+                        WriteLine($"Nombre: {curso.Nombre}, Id {curso.UniqueId}");
+                    }
+            }
 
-            var curso3 = new Curso()
-            {
-                Nombre = "301",
-            };
 
-            arregloCursos[2] = new Curso()
-            {
-                Nombre = "301"
-            };
-            Console.WriteLine(escuela);
-            System.Console.WriteLine("================");
-
-            ImprimirCursosWhile(arregloCursos);
-
-            System.Console.WriteLine("================");
-
-            ImprimirCursosDoWhile(arregloCursos);
-
-            System.Console.WriteLine("================");
-
-            ImprimirCursosFor(arregloCursos);
-
-            
-            System.Console.WriteLine("================");
-
-            ImprimirCursosForEach(arregloCursos);
         }
 
         private static void ImprimirCursosWhile(Curso[] arregloCursos)
