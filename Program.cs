@@ -16,6 +16,36 @@ namespace CorEscuela
                 new Curso(){Nombre = "301"}
             };
             ImprimirCursosEscuela(escuela);
+
+            bool rta = 10 == 10; //true
+            int cantidad = 11;
+            if (rta == false)
+            {
+                WriteLine("Se cumplio la condición #1");
+            }
+            else if (cantidad > 15)
+            {
+                WriteLine("Se cumplio la condición #2");
+            }
+            else
+            {
+                WriteLine("No Se cumplio la condición");
+            }
+
+            if (cantidad > 5 && rta == false)
+            {
+                WriteLine("Se cumplio la condición #3");
+            }
+
+            if (cantidad > 5 && rta)
+            {
+                WriteLine("Se cumplio la condición #4");
+            }
+
+            if ((cantidad > 5 || !rta) && cantidad % 5 == 0)
+            {
+                WriteLine("Se cumplio la condición #5");
+            }
         }
 
         private static void ImprimirCursosEscuela(Escuela escuela)
@@ -24,11 +54,12 @@ namespace CorEscuela
             WriteLine("Cursos de la Escuela");
             WriteLine("====================");
 
-            if (escuela?.Cursos!=null){
-                    foreach (var curso in escuela.Cursos)
-                    {
-                        WriteLine($"Nombre: {curso.Nombre}, Id {curso.UniqueId}");
-                    }
+            if (escuela?.Cursos != null)
+            {
+                foreach (var curso in escuela.Cursos)
+                {
+                    WriteLine($"Nombre: {curso.Nombre}, Id {curso.UniqueId}");
+                }
             }
 
 
