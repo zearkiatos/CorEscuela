@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CorEscuela.Entities;
 using CorEscuela.Entities.Enum;
 using static System.Console;
@@ -10,42 +11,55 @@ namespace CorEscuela
         {
             var escuela = new Escuela("Escuela Platzi", 2006, TipoEscuelas.PreEscolar, pais: "Colombia", ciudad: "Bogotá");
 
-            escuela.Cursos = new Curso[]{
-                new Curso(){Nombre = "101"},
-                new Curso(){Nombre = "201"},
-                new Curso(){Nombre = "301"}
+            var listaCursos = new List<Curso>(){
+                new Curso(){Nombre = "101", Jornada = TipoJornadas.Maniana},
+                new Curso(){Nombre = "201", Jornada = TipoJornadas.Maniana},
+                new Curso(){Nombre = "301", Jornada = TipoJornadas.Maniana}
             };
+
+            escuela.Cursos = listaCursos;
+
+            escuela.Cursos.Add(new Curso(){
+                Nombre="102",
+                Jornada= TipoJornadas.Tarde
+            });
+
+            escuela.Cursos.Add(new Curso(){
+                Nombre="202",
+                Jornada= TipoJornadas.Tarde
+            });
+
+            var otraColeccion = new List<Curso>(){
+                new Curso(){Nombre = "401", Jornada = TipoJornadas.Maniana},
+                new Curso(){Nombre = "501", Jornada = TipoJornadas.Maniana},
+                new Curso(){Nombre = "502", Jornada = TipoJornadas.Tarde}
+            };
+
+            Curso tmp = new Curso{
+                Nombre="101-Vacacional",
+                Jornada = TipoJornadas.Noche
+            };
+            otraColeccion.Clear();
+
+            escuela.Cursos.AddRange(otraColeccion);
+
+            escuela.Cursos.Add(tmp);
+
+
+            ImprimirCursosEscuela(escuela);
+            // WriteLine("Curso.Hash "+tmp.GetHashCode());
+
+            Predicate<Curso> miAlgoritmo = precidado;
+            escuela.Cursos.RemoveAll(miAlgoritmo);
+            // escuela.Cursos.Remove(tmp);
+            WriteLine("===============");
             ImprimirCursosEscuela(escuela);
 
-            bool rta = 10 == 10; //true
-            int cantidad = 11;
-            if (rta == false)
-            {
-                WriteLine("Se cumplio la condición #1");
-            }
-            else if (cantidad > 15)
-            {
-                WriteLine("Se cumplio la condición #2");
-            }
-            else
-            {
-                WriteLine("No Se cumplio la condición");
-            }
+        }
 
-            if (cantidad > 5 && rta == false)
-            {
-                WriteLine("Se cumplio la condición #3");
-            }
-
-            if (cantidad > 5 && rta)
-            {
-                WriteLine("Se cumplio la condición #4");
-            }
-
-            if ((cantidad > 5 || !rta) && cantidad % 5 == 0)
-            {
-                WriteLine("Se cumplio la condición #5");
-            }
+        private static bool precidado(Curso obj)
+        {
+            return obj.Nombre == "301";
         }
 
         private static void ImprimirCursosEscuela(Escuela escuela)
