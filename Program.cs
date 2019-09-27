@@ -49,19 +49,20 @@ namespace CorEscuela
             ImprimirCursosEscuela(escuela);
             // WriteLine("Curso.Hash "+tmp.GetHashCode());
 
-            Predicate<Curso> miAlgoritmo = precidado;
-            escuela.Cursos.RemoveAll(miAlgoritmo);
+            //Delegate
+            escuela.Cursos.RemoveAll(delegate(Curso cur){
+                return cur.Nombre == "301";
+            });
+
+            //Lambda Expresions
+            escuela.Cursos.RemoveAll((Curso cur)=>cur.Nombre == "501" && cur.Jornada == TipoJornadas.Maniana);
+
             // escuela.Cursos.Remove(tmp);
             WriteLine("===============");
             ImprimirCursosEscuela(escuela);
 
         }
-
-        private static bool precidado(Curso obj)
-        {
-            return obj.Nombre == "301";
-        }
-
+        
         private static void ImprimirCursosEscuela(Escuela escuela)
         {
             WriteLine("====================");
