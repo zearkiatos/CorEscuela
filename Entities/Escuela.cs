@@ -3,7 +3,7 @@ using CorEscuela.Entities.Enum;
 
 namespace CorEscuela.Entities
 {
-    class Escuela
+    public class Escuela
     {
         private string nombre;
 
