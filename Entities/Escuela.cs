@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using CorEscuela.Entities.Enum;
 
 namespace CorEscuela.Entities
@@ -32,7 +33,7 @@ namespace CorEscuela.Entities
     
         }
 
-        public Curso[] Cursos { get; set; }
+        public List<Curso> Cursos { get; set; }
 
         public override string ToString(){
             return $"Nombre: \"{Nombre}\" , Tipo: {TipoEscuela} \n Pais: {System.Environment.NewLine} {Pais}, Ciudad: {Ciudad}";
