@@ -10,6 +10,8 @@ namespace CorEscuela.App
     {
         public Escuela Escuela { get; set; }
 
+        public List<Evaluacion> Evaluaciones { get; set; }
+
         public EscuelaEngine()
         {
             this.Inicializate();
@@ -18,6 +20,7 @@ namespace CorEscuela.App
         public void Inicializate()
         {
             Escuela = new Escuela("Escuela Platzi", 2006, TipoEscuelas.PreEscolar, pais: "Colombia", ciudad: "Bogotá");
+            Evaluaciones = new List<Evaluacion>();
 
             CargarCursos();
 
@@ -25,14 +28,39 @@ namespace CorEscuela.App
 
             CargarEvaluaciones();
 
+            foreach (var evaluacion in Evaluaciones)
+            {
+                Console.WriteLine($"ID: {evaluacion.UniqueId} | Nombre Alumno: {evaluacion.Alumno.Nombre} | Examen: {evaluacion.Nombre} | Nota: {evaluacion.Nota}");
+            }
+
 
 
 
         }
 
-        private void CargarEvaluaciones()
+        private void CargarEvaluaciones(int qty = 5)
         {
-            throw new NotImplementedException();
+            foreach (var curso in Escuela.Cursos)
+            {
+                foreach (var asignatura in curso.Asignaturas)
+                {
+                    for (int i = 0; i < qty; i++)
+                    {
+                        var evaluaciones = from alum in curso.Alumnos
+                                           select new Evaluacion
+                                           {
+                                               Alumno = alum,
+                                               Asignatura = asignatura,
+                                               Nombre = $"Curso {curso.Nombre} Evaluación {i + 1} {asignatura.Nombre}",
+                                               Nota = NoteSimulator()
+                                           };
+                        Evaluaciones.AddRange(evaluaciones);
+                    }
+
+                }
+
+            }
+
         }
 
         private void CargarAsignaturas()
@@ -68,6 +96,14 @@ namespace CorEscuela.App
 
 
         }
+
+        private float NoteSimulator()
+        {
+            var rand = new Random();
+            float result = (float)Math.Round(rand.NextDouble() * 5, 2);
+            return result;
+        }
+
 
         private void CargarCursos()
         {
