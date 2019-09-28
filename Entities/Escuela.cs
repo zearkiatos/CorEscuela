@@ -4,18 +4,8 @@ using CorEscuela.Entities.Enum;
 
 namespace CorEscuela.Entities
 {
-    public class Escuela
+    public class Escuela : ObjetoEscuelaBase
     {
-        public string UniqueId { get; private set; } = Guid.NewGuid().ToString();
-        private string nombre;
-
-        public string Nombre
-        {
-            get { return nombre; }
-
-            set { nombre = value.ToUpper(); }
-        }
-
         public int AnioDeCreacion { get; set; }
 
         public string Pais { get; set; }
