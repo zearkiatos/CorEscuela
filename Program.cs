@@ -12,10 +12,49 @@ namespace CorEscuela
         static void Main(string[] args)
         {
             var engine = new EscuelaEngine();
-            
+
             Printer.WriteTitle("BIENVENIDOS A LA ESCUELA");
-            Printer.Beep(10000,qty:10);
+            // Printer.Beep(10000,qty:10);
             ImprimirCursosEscuela(engine.Escuela);
+
+            Printer.DrawLine(20);
+            Printer.DrawLine(20);
+            Printer.DrawLine(20);
+            Printer.WriteTitle("Pruebas de Polimorfismo");
+            var alumnoTest = new Alumno
+            {
+                Nombre = "Claire Underwood"
+            };
+
+            ObjetoEscuelaBase ob = alumnoTest;
+
+            Printer.WriteTitle("Alumno");
+            WriteLine($"Alumno: {alumnoTest.Nombre}");
+            WriteLine($"UniqueId: {alumnoTest.UniqueId}");
+            WriteLine($"Type Objet: {alumnoTest.GetType()}");
+
+            Printer.WriteTitle("Objeto Escuela");
+            WriteLine($"Alumno: {ob.Nombre}");
+            WriteLine($"UniqueId: {ob.UniqueId}");
+            WriteLine($"Type Objet: {ob.GetType()}");
+
+
+            var objDummy = new ObjetoEscuelaBase()
+            {
+                Nombre = "Frank Underwood"
+            };
+            Printer.WriteTitle("Objeto Escuela Base");
+            WriteLine($"Alumno: {objDummy.Nombre}");
+            WriteLine($"UniqueId: {objDummy.UniqueId}");
+            WriteLine($"Type Objet: {objDummy.GetType()}");
+
+            alumnoTest = (Alumno)ob;
+
+            Printer.WriteTitle("Alumno");
+            WriteLine($"Alumno: {alumnoTest.Nombre}");
+            WriteLine($"UniqueId: {alumnoTest.UniqueId}");
+            WriteLine($"Type Objet: {alumnoTest.GetType()}");
+
 
         }
 
@@ -23,8 +62,10 @@ namespace CorEscuela
         {
             Printer.WriteTitle("Cursos de Escuela");
 
-            if(escuela?.Cursos != null){
-                foreach(var curso in escuela.Cursos){
+            if (escuela?.Cursos != null)
+            {
+                foreach (var curso in escuela.Cursos)
+                {
                     WriteLine($"Nombre: {curso.Nombre}, Id {curso.UniqueId}");
                 }
             }
