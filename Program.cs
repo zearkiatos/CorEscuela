@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CorEscuela.App;
 using CorEscuela.Entities;
 using CorEscuela.Entities.Enum;
+using CorEscuela.Utils;
 using static System.Console;
 namespace CorEscuela
 {
@@ -12,16 +13,15 @@ namespace CorEscuela
         {
             var engine = new EscuelaEngine();
             
-            WriteLine("===================");
+            Printer.WriteTitle("BIENVENIDOS A LA ESCUELA");
+            Printer.Beep(10000,qty:10);
             ImprimirCursosEscuela(engine.Escuela);
 
         }
 
         private static void ImprimirCursosEscuela(Escuela escuela)
         {
-            WriteLine("===================");
-            WriteLine("Cursos de la Escuela");
-            WriteLine("===================");
+            Printer.WriteTitle("Cursos de Escuela");
 
             if(escuela?.Cursos != null){
                 foreach(var curso in escuela.Cursos){

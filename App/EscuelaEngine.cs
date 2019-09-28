@@ -10,7 +10,7 @@ namespace CorEscuela.App
 
         public EscuelaEngine()
         {
-
+            this.Inicializate();
         }
 
         public void Inicializate()
@@ -25,6 +25,8 @@ namespace CorEscuela.App
                 new Curso(){Nombre = "501", Jornada = TipoJornadas.Maniana},
                 new Curso(){Nombre = "502", Jornada = TipoJornadas.Tarde}
             };
+
+            Escuela.Cursos = listaCursos;
 
 
 
