@@ -19,21 +19,11 @@ namespace CorEscuela.App
         {
             Escuela = new Escuela("Escuela Platzi", 2006, TipoEscuelas.PreEscolar, pais: "Colombia", ciudad: "Bogotá");
 
-            List<Curso> listaCursos = CargarCursos();
-
-            CargarAlumnos();
+            CargarCursos();
 
             CargarAsignaturas();
 
-            foreach (var curso in Escuela.Cursos)
-            {
-                curso.Alumnos.AddRange(CargarAlumnos());
-            }
-
-
             CargarEvaluaciones();
-
-            Escuela.Cursos = listaCursos;
 
 
 
@@ -55,11 +45,11 @@ namespace CorEscuela.App
                     new Asignatura{Nombre = "Castellano"},
                     new Asignatura{Nombre = "Ciencias Naturales"}
                 };
-                curso.Asignaturas.AddRange(listaAsignaturas);
+                curso.Asignaturas = listaAsignaturas;
             }
         }
 
-        private IEnumerable<Alumno> CargarAlumnos()
+        private List<Alumno> GenerateRandomAlumnos(int qty)
         {
             string[] nombre1 = { "Alba", "Felipa", "Eusebio", "Farid", "Donald", "Alvaro", "Nicolás", "Zoy" };
             string[] apellido1 = { "Ruiz", "Sarmiento", "Uribe", "Maduro", "Trump", "Toledo", "Herrera", "Cerra" };
@@ -73,15 +63,15 @@ namespace CorEscuela.App
                                    Nombre = $"{n1} {n2} {a1}"
                                };
 
-            return listaAlumnos;
+            return listaAlumnos.OrderBy((a) => a.UniqueId).Take(qty).ToList();
 
 
 
         }
 
-        private static List<Curso> CargarCursos()
+        private void CargarCursos()
         {
-            return new List<Curso>(){
+            Escuela.Cursos = new List<Curso>(){
                 new Curso(){Nombre = "101", Jornada = TipoJornadas.Maniana},
                 new Curso(){Nombre = "201", Jornada = TipoJornadas.Maniana},
                 new Curso(){Nombre = "301", Jornada = TipoJornadas.Maniana},
@@ -89,6 +79,12 @@ namespace CorEscuela.App
                 new Curso(){Nombre = "501", Jornada = TipoJornadas.Maniana},
                 new Curso(){Nombre = "502", Jornada = TipoJornadas.Tarde}
             };
+            Random rnd = new Random();
+            foreach (var c in Escuela.Cursos)
+            {
+                int qtyRandom = rnd.Next(5, 20);
+                c.Alumnos = GenerateRandomAlumnos(qtyRandom);
+            }
         }
     }
 }
