@@ -50,10 +50,25 @@ namespace CorEscuela
 
             alumnoTest = (Alumno)ob;
 
-            Printer.WriteTitle("Alumno");
-            WriteLine($"Alumno: {alumnoTest.Nombre}");
-            WriteLine($"UniqueId: {alumnoTest.UniqueId}");
-            WriteLine($"Type Objet: {alumnoTest.GetType()}");
+            var evaluacion = new Evaluacion
+            {
+                Nombre = "Evaluación de Matemática",
+                Nota = 4.5f
+            };
+
+            Printer.WriteTitle("Evaluación");
+            WriteLine($"Nombre: {evaluacion.Nombre}");
+            WriteLine($"UniqueId: {evaluacion.UniqueId}");
+            WriteLine($"Nota: {evaluacion.Nota}");
+            WriteLine($"Type: {evaluacion.GetType()}");
+
+            ob = evaluacion;
+
+            Printer.WriteTitle("Objeto Escuela");
+            WriteLine($"Evaluación: {ob.Nombre}");
+            WriteLine($"UniqueId: {ob.UniqueId}");
+            WriteLine($"Type Objet: {ob.GetType()}");
+
 
 
         }
