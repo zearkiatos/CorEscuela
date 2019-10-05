@@ -4,7 +4,10 @@ using CorEscuela.App;
 using CorEscuela.Entities;
 using CorEscuela.Entities.Enum;
 using CorEscuela.Utils;
+using System.Linq;
 using static System.Console;
+using CorEscuela.Entities.Interfaces;
+
 namespace CorEscuela
 {
     class Program
@@ -18,6 +21,12 @@ namespace CorEscuela
             ImprimirCursosEscuela(engine.Escuela);
 
             var listaObjetos = engine.GetObjetosEscuela();
+
+            var listaILugar = from obj in listaObjetos
+                              where obj is Alumno
+                              select (Alumno)obj;
+
+            //engine.Escuela.LimpiarLugar();
 
         }
 

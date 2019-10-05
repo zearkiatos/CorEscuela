@@ -49,11 +49,27 @@ namespace CorEscuela.Entities
         {
             Printer.DrawLine();
             Console.WriteLine("Limpiando Escuela...");
-            foreach (var curso in Cursos)
+            try
             {
-                curso.LimpiarLugar();
+                Printer.Beep(1000, qty: 3);
             }
-            Console.WriteLine($"Escuela {Nombre} esta Limpio");
+            catch (PlatformNotSupportedException ex)
+            {
+                Console.WriteLine($"{ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"{ex.Message}");
+            }
+            finally
+            {
+                foreach (var curso in Cursos)
+                {
+                    curso.LimpiarLugar();
+                }
+                Printer.WriteTitle($"Escuela {Nombre} esta Limpio");
+            }
+
         }
     }
 }
