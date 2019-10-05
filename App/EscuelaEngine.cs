@@ -6,11 +6,10 @@ using CorEscuela.Entities.Enum;
 
 namespace CorEscuela.App
 {
-    public class EscuelaEngine
+
+    public sealed class EscuelaEngine
     {
         public Escuela Escuela { get; set; }
-
-        public List<Evaluacion> Evaluaciones { get; set; }
 
         public EscuelaEngine()
         {
@@ -20,19 +19,12 @@ namespace CorEscuela.App
         public void Inicializate()
         {
             Escuela = new Escuela("Escuela Platzi", 2006, TipoEscuelas.PreEscolar, pais: "Colombia", ciudad: "Bogotá");
-            Evaluaciones = new List<Evaluacion>();
 
             CargarCursos();
 
             CargarAsignaturas();
 
             CargarEvaluaciones();
-
-            foreach (var evaluacion in Evaluaciones)
-            {
-                Console.WriteLine($"ID: {evaluacion.UniqueId} | Nombre Alumno: {evaluacion.Alumno.Nombre} | Examen: {evaluacion.Nombre} | Nota: {evaluacion.Nota}");
-            }
-
 
 
 
@@ -44,18 +36,24 @@ namespace CorEscuela.App
             {
                 foreach (var asignatura in curso.Asignaturas)
                 {
-                    for (int i = 0; i < qty; i++)
+
+                    foreach (var alumno in curso.Alumnos)
                     {
-                        var evaluaciones = from alum in curso.Alumnos
-                                           select new Evaluacion
-                                           {
-                                               Alumno = alum,
-                                               Asignatura = asignatura,
-                                               Nombre = $"Curso {curso.Nombre} Evaluación {i + 1} {asignatura.Nombre}",
-                                               Nota = NoteSimulator()
-                                           };
-                        Evaluaciones.AddRange(evaluaciones);
+                        alumno.Evaluaciones = new List<Evaluacion>();
+                        for (int i = 0; i < qty; i++)
+                        {
+                            Evaluacion evaluacion = new Evaluacion
+                            {
+                                Alumno = alumno,
+                                Asignatura = asignatura,
+                                Nombre = $"Curso {curso.Nombre} Evaluación {i + 1} {asignatura.Nombre}",
+                                Nota = NoteSimulator()
+                            };
+                            alumno.Evaluaciones.Add(evaluacion);
+                        }
                     }
+
+
 
                 }
 
@@ -121,6 +119,28 @@ namespace CorEscuela.App
                 int qtyRandom = rnd.Next(5, 20);
                 c.Alumnos = GenerateRandomAlumnos(qtyRandom);
             }
+        }
+
+        public List<ObjetoEscuelaBase> GetObjetosEscuela()
+        {
+            var listaObj = new List<ObjetoEscuelaBase>();
+            listaObj.Add(Escuela);
+
+            listaObj.AddRange(Escuela.Cursos);
+
+            foreach (var curso in Escuela.Cursos)
+            {
+                listaObj.AddRange(curso.Asignaturas);
+                listaObj.AddRange(curso.Alumnos);
+
+
+                foreach (var alumno in curso.Alumnos)
+                {
+                    listaObj.AddRange(alumno.Evaluaciones);
+                }
+            }
+
+            return listaObj;
         }
     }
 }
