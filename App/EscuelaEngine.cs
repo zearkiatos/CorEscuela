@@ -29,7 +29,7 @@ namespace CorEscuela.App
 
 
         }
-
+#region Metodos de Carga
         private void CargarEvaluaciones(int qty = 5)
         {
             foreach (var curso in Escuela.Cursos)
@@ -120,6 +120,8 @@ namespace CorEscuela.App
                 c.Alumnos = GenerateRandomAlumnos(qtyRandom);
             }
         }
+
+#endregion
 
         public List<ObjetoEscuelaBase> GetObjetosEscuela()
         {
