@@ -1,16 +1,29 @@
 using System;
 using System.Collections.Generic;
 using CorEscuela.Entities.Enum;
+using CorEscuela.Entities.Interfaces;
+using CorEscuela.Utils;
 
 namespace CorEscuela.Entities
 {
-    public class Escuela : ObjetoEscuelaBase
+    public class Escuela : ObjetoEscuelaBase, ILugar
     {
+        public Escuela(int anioDeCreacion, string pais, string ciudad, string direccion, TipoEscuelas tipoEscuela)
+        {
+            this.AnioDeCreacion = anioDeCreacion;
+            this.Pais = pais;
+            this.Ciudad = ciudad;
+            this.Direccion = direccion;
+            this.TipoEscuela = tipoEscuela;
+
+        }
         public int AnioDeCreacion { get; set; }
 
         public string Pais { get; set; }
 
         public string Ciudad { get; set; }
+
+        public string Direccion { get; set; }
 
 
         public TipoEscuelas TipoEscuela { get; set; }
@@ -32,6 +45,15 @@ namespace CorEscuela.Entities
             return $"Nombre: \"{Nombre}\" , Tipo: {TipoEscuela} \n Pais: {System.Environment.NewLine} {Pais}, Ciudad: {Ciudad}";
         }
 
-
+        public void LimpiarLugar()
+        {
+            Printer.DrawLine();
+            Console.WriteLine("Limpiando Escuela...");
+            foreach (var curso in Cursos)
+            {
+                curso.LimpiarLugar();
+            }
+            Console.WriteLine($"Escuela {Nombre} esta Limpio");
+        }
     }
 }
