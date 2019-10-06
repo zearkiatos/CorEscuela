@@ -19,8 +19,8 @@ namespace CorEscuela
             Printer.WriteTitle("BIENVENIDOS A LA ESCUELA");
             // Printer.Beep(10000,qty:10);
             ImprimirCursosEscuela(engine.Escuela);
-
-            var listaObjetos = engine.GetObjetosEscuela(true,false,false,false);
+            int dummy = 0;
+            var listaObjetos = engine.GetObjetosEscuela(out int countEvaluations,out int countStudents, out int countAsignatures, out int countCourses);
 
         }
 
