@@ -123,7 +123,7 @@ namespace CorEscuela.App
 
         #endregion
 
-        public (List<ObjetoEscuelaBase>, int) GetObjetosEscuela(out int countEvaluations, out int countStudents, out int countAsignatures, out int countCourse,
+        public List<ObjetoEscuelaBase> GetObjetosEscuela(out int countEvaluations, out int countStudents, out int countAsignatures, out int countCourse,
                 bool traeEvaluaciones = true, bool traeAlumnos = true, bool traeAsignaturas = true, bool traeCursos = true)
         {
             var listaObj = new List<ObjetoEscuelaBase>();
@@ -157,7 +157,27 @@ namespace CorEscuela.App
                 }
             }
 
-            return (listaObj, countEvaluations);
+            return listaObj;
+        }
+
+        public List<ObjetoEscuelaBase> GetObjetosEscuela(bool traeEvaluaciones = true, bool traeAlumnos = true, bool traeAsignaturas = true, bool traeCursos = true)
+        {
+            return GetObjetosEscuela(out int dummy, out dummy, out dummy, out dummy);
+        }
+
+        public List<ObjetoEscuelaBase> GetObjetosEscuela(out int countEvaluations, bool traeEvaluaciones = true, bool traeAlumnos = true, bool traeAsignaturas = true, bool traeCursos = true)
+        {
+            return GetObjetosEscuela(out countEvaluations, out int dummy, out dummy, out dummy);
+        }
+
+        public List<ObjetoEscuelaBase> GetObjetosEscuela(out int countEvaluations, out int countStudents, bool traeEvaluaciones = true, bool traeAlumnos = true, bool traeAsignaturas = true, bool traeCursos = true)
+        {
+            return GetObjetosEscuela(out countEvaluations, out countStudents, out int dummy, out dummy);
+        }
+
+        public List<ObjetoEscuelaBase> GetObjetosEscuela(out int countEvaluations, out int countStudents, out int countAsignatures, bool traeEvaluaciones = true, bool traeAlumnos = true, bool traeAsignaturas = true, bool traeCursos = true)
+        {
+            return GetObjetosEscuela(out countEvaluations, out countStudents, out countAsignatures, out int dummy);
         }
     }
 }
