@@ -29,7 +29,7 @@ namespace CorEscuela.App
 
 
         }
-#region Metodos de Carga
+        #region Metodos de Carga
         private void CargarEvaluaciones(int qty = 5)
         {
             foreach (var curso in Escuela.Cursos)
@@ -121,28 +121,43 @@ namespace CorEscuela.App
             }
         }
 
-#endregion
+        #endregion
 
-        public List<ObjetoEscuelaBase> GetObjetosEscuela()
+        public (List<ObjetoEscuelaBase>, int) GetObjetosEscuela(out int countEvaluations, out int countStudents, out int countAsignatures, out int countCourse,
+                bool traeEvaluaciones = true, bool traeAlumnos = true, bool traeAsignaturas = true, bool traeCursos = true)
         {
             var listaObj = new List<ObjetoEscuelaBase>();
+            countEvaluations = countCourse = countAsignatures = countStudents = 0;
             listaObj.Add(Escuela);
 
-            listaObj.AddRange(Escuela.Cursos);
+            if (traeCursos)
+                listaObj.AddRange(Escuela.Cursos);
+
+            countCourse = Escuela.Cursos.Count;
 
             foreach (var curso in Escuela.Cursos)
             {
-                listaObj.AddRange(curso.Asignaturas);
-                listaObj.AddRange(curso.Alumnos);
+                if (traeAsignaturas)
+                    listaObj.AddRange(curso.Asignaturas);
 
+                countAsignatures += curso.Asignaturas.Count;
 
-                foreach (var alumno in curso.Alumnos)
+                if (traeAlumnos)
+                    listaObj.AddRange(curso.Alumnos);
+
+                countStudents += curso.Alumnos.Count;
+
+                if (traeEvaluaciones)
                 {
-                    listaObj.AddRange(alumno.Evaluaciones);
+                    foreach (var alumno in curso.Alumnos)
+                    {
+                        listaObj.AddRange(alumno.Evaluaciones);
+                        countEvaluations += alumno.Evaluaciones.Count;
+                    }
                 }
             }
 
-            return listaObj;
+            return (listaObj, countEvaluations);
         }
     }
 }

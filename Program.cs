@@ -20,13 +20,7 @@ namespace CorEscuela
             // Printer.Beep(10000,qty:10);
             ImprimirCursosEscuela(engine.Escuela);
 
-            var listaObjetos = engine.GetObjetosEscuela();
-
-            var listaILugar = from obj in listaObjetos
-                              where obj is Alumno
-                              select (Alumno)obj;
-
-            //engine.Escuela.LimpiarLugar();
+            var listaObjetos = engine.GetObjetosEscuela(true,false,false,false);
 
         }
 
