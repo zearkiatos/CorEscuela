@@ -20,7 +20,7 @@ namespace CorEscuela
             // Printer.Beep(10000,qty:10);
             ImprimirCursosEscuela(engine.Escuela);
             int dummy = 0;
-            var listaObjetos = engine.GetObjetosEscuela(out int countEvaluations,out int countStudents, out int countAsignatures, out int countCourses);
+            var listaObjetos = engine.GetObjetosEscuela(out int countEvaluations, out int countStudents, out int countAsignatures, out int countCourses);
 
         }
 
