@@ -123,6 +123,7 @@ namespace CorEscuela.App
 
         #endregion
 
+
         public IReadOnlyList<ObjetoEscuelaBase> GetObjetosEscuela(out int countEvaluations, out int countStudents, out int countAsignatures, out int countCourse,
                 bool traeEvaluaciones = true, bool traeAlumnos = true, bool traeAsignaturas = true, bool traeCursos = true)
         {
@@ -175,7 +176,7 @@ namespace CorEscuela.App
             return GetObjetosEscuela(out countEvaluations, out countStudents, out int dummy, out dummy);
         }
 
-        public List<ObjetoEscuelaBase> GetObjetosEscuela(out int countEvaluations, out int countStudents, out int countAsignatures, bool traeEvaluaciones = true, bool traeAlumnos = true, bool traeAsignaturas = true, bool traeCursos = true)
+        public IReadOnlyList<ObjetoEscuelaBase> GetObjetosEscuela(out int countEvaluations, out int countStudents, out int countAsignatures, bool traeEvaluaciones = true, bool traeAlumnos = true, bool traeAsignaturas = true, bool traeCursos = true)
         {
             return GetObjetosEscuela(out countEvaluations, out countStudents, out countAsignatures, out int dummy);
         }
