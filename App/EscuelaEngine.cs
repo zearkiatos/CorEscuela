@@ -181,15 +181,14 @@ namespace CorEscuela.App
             return GetObjetosEscuela(out countEvaluations, out countStudents, out countAsignatures, out int dummy);
         }
 
-        public Dictonary<string, IEnumerable<ObjetoEscuelaBase>> GetDictionaryObject()
+        public Dictonary<LlaveDiccionario, IEnumerable<ObjetoEscuelaBase>> GetDictionaryObject()
         {
-            var dictionary = new Dictionary<string, IEnumerable<ObjetoEscuelaBase>>();
 
-            o = c.Cast<ObjetoEscuelaBase>();
+            var dictionary = new Dictionary<LlaveDiccionario, IEnumerable<ObjetoEscuelaBase>>();
 
-            dictionary.Add("Escuela", new[]{Escuela});
+            dictionary.Add(LlaveDiccionario.Escuela, new[] { Escuela });
 
-            dictionary.Add("Cursos", Escuela.Cursos.Cast<ObjetoEscuelaBase>());
+            dictionary.Add(LlaveDiccionario.Curso, Escuela.Cursos.Cast<ObjetoEscuelaBase>());
 
             return dictionary;
         }
