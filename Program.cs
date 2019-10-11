@@ -33,22 +33,8 @@ namespace CorEscuela
                 WriteLine($"Key: {keyValPair.Key} Valor: {keyValPair.Value}");
             }
 
-            Printer.WriteTitle("Acceso a diccionario");
+            var dictmp = engine.GetDictionaryObject();
 
-            diccionario[0] = "Pekerman";
-
-            WriteLine(diccionario[0]);
-
-            Printer.WriteTitle("Otro Diccionario");
-
-            var dic = new Dictionary<string, string>();
-            dic["Luna"] = "Cuerpo celeste que gira alrededor de la Tierra";
-
-            WriteLine(dic["Luna"]);
-
-            dic["Luna"] = "Protagonista de Soy Luna";
-
-            WriteLine(dic["Luna"]);
 
         }
 
