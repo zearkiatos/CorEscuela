@@ -209,16 +209,36 @@ namespace CorEscuela.App
             return dictionary;
         }
 
-        public void PrintDictionary(Dictionary<LlaveDiccionario, IEnumerable<ObjetoEscuelaBase>> dictionary)
+        public void PrintDictionary(Dictionary<LlaveDiccionario, IEnumerable<ObjetoEscuelaBase>> dictionary, bool printEvaluacion = false)
         {
             foreach (var obj in dictionary)
             {
                 Printer.WriteTitle(obj.Key.ToString());
                 Console.WriteLine(obj);
-
                 foreach (var val in obj.Value)
                 {
-                    Console.WriteLine(val);
+                    switch (val.GetType)
+                    {
+
+                    }
+                    if (val is Evaluacion)
+                    {
+                        if (printEvaluacion)
+                            Console.WriteLine(val);
+                    }
+                    else if (val is Escuela)
+                    {
+                        Console.WriteLine("Escuela: " + val);
+                    }
+                    else if (val is Alumno)
+                    {
+                        Console.WriteLine("Alumno: " + val.Nombre);
+                    }
+                    else
+                    {
+                        Console.WriteLine(val);
+                    }
+
                 }
             }
         }
