@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CorEscuela.Entities;
 using CorEscuela.Entities.Enum;
+using CorEscuela.Utils;
 
 namespace CorEscuela.App
 {
@@ -206,6 +207,20 @@ namespace CorEscuela.App
             dictionary.Add(LlaveDiccionario.Alumnos, tempListAlumno.Cast<ObjetoEscuelaBase>());
             dictionary.Add(LlaveDiccionario.Evaluaciones, tempList.Cast<ObjetoEscuelaBase>());
             return dictionary;
+        }
+
+        public void PrintDictionary(Dictionary<LlaveDiccionario, IEnumerable<ObjetoEscuelaBase>> dictionary)
+        {
+            foreach (var obj in dictionary)
+            {
+                Printer.WriteTitle(obj.Key.ToString());
+                Console.WriteLine(obj);
+
+                foreach (var val in obj.Value)
+                {
+                    Console.WriteLine(val);
+                }
+            }
         }
     }
 }

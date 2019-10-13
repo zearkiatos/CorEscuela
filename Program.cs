@@ -35,6 +35,8 @@ namespace CorEscuela
 
             var dictmp = engine.GetDictionaryObject();
 
+            engine.PrintDictionary(dictmp);
+
 
         }
 
