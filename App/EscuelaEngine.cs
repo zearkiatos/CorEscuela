@@ -99,7 +99,7 @@ namespace CorEscuela.App
         private float NoteSimulator()
         {
             var rand = new Random();
-            float result = (float)Math.Round(rand.NextDouble() * 5, 2);
+            float result = (float)MathF.Round((float)rand.NextDouble() * 5, 2);
             return result;
         }
 
@@ -217,26 +217,29 @@ namespace CorEscuela.App
                 Console.WriteLine(obj);
                 foreach (var val in obj.Value)
                 {
-                    switch (val.GetType)
+                    switch (obj.Key)
                     {
-
-                    }
-                    if (val is Evaluacion)
-                    {
-                        if (printEvaluacion)
+                        case LlaveDiccionario.Evaluaciones:
+                            if (printEvaluacion)
+                                Console.WriteLine(val);
+                            break;
+                        case LlaveDiccionario.Escuela:
+                            Console.WriteLine("Escuela: " + val);
+                            break;
+                        case LlaveDiccionario.Alumnos:
+                            Console.WriteLine("Alumno: " + val.Nombre);
+                            break;
+                        case LlaveDiccionario.Cursos:
+                            var cursoTemp = val as Curso;
+                            if (cursoTemp != null)
+                            {
+                                int count = ((Curso)val).Alumnos.Count;
+                                Console.WriteLine("Curso: " + val.Nombre + " Cantidad de Alumnos: " + count);
+                            }
+                            break;
+                        default:
                             Console.WriteLine(val);
-                    }
-                    else if (val is Escuela)
-                    {
-                        Console.WriteLine("Escuela: " + val);
-                    }
-                    else if (val is Alumno)
-                    {
-                        Console.WriteLine("Alumno: " + val.Nombre);
-                    }
-                    else
-                    {
-                        Console.WriteLine(val);
+                            break;
                     }
 
                 }
