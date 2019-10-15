@@ -22,7 +22,6 @@ namespace CorEscuela
             Printer.WriteTitle("BIENVENIDOS A LA ESCUELA");
             // Printer.Beep(10000,qty:10);
             ImprimirCursosEscuela(engine.Escuela);
-            int dummy = 0;
             var listaObjetos = engine.GetObjetosEscuela();
 
             Dictionary<int, string> diccionario = new Dictionary<int, string>();
