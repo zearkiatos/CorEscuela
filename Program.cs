@@ -20,24 +20,8 @@ namespace CorEscuela
             var engine = new EscuelaEngine();
 
             Printer.WriteTitle("BIENVENIDOS A LA ESCUELA");
-            // Printer.Beep(10000,qty:10);
-            ImprimirCursosEscuela(engine.Escuela);
-            var listaObjetos = engine.GetObjetosEscuela();
 
-            Dictionary<int, string> diccionario = new Dictionary<int, string>();
-
-            diccionario.Add(10, "JuanK");
-
-            diccionario.Add(23, "Lorem Ipsum");
-
-            foreach (var keyValPair in diccionario)
-            {
-                WriteLine($"Key: {keyValPair.Key} Valor: {keyValPair.Value}");
-            }
-
-            var dictmp = engine.GetDictionaryObject();
-
-            engine.PrintDictionary(dictmp, true);
+            var reporteador = new Reporteador(null);
 
 
         }
