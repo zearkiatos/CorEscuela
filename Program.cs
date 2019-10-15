@@ -14,20 +14,39 @@ namespace CorEscuela
     {
         static void Main(string[] args)
         {
+            AppDomain.CurrentDomain.ProcessExit += EventAction;
+            AppDomain.CurrentDomain.ProcessExit += (o, s) => Printer.Beep(100, 1000, 1);
+            AppDomain.CurrentDomain.ProcessExit -= EventAction;
             var engine = new EscuelaEngine();
 
             Printer.WriteTitle("BIENVENIDOS A LA ESCUELA");
             // Printer.Beep(10000,qty:10);
             ImprimirCursosEscuela(engine.Escuela);
-
             var listaObjetos = engine.GetObjetosEscuela();
 
-            var listaILugar = from obj in listaObjetos
-                              where obj is Alumno
-                              select (Alumno)obj;
+            Dictionary<int, string> diccionario = new Dictionary<int, string>();
 
-            //engine.Escuela.LimpiarLugar();
+            diccionario.Add(10, "JuanK");
 
+            diccionario.Add(23, "Lorem Ipsum");
+
+            foreach (var keyValPair in diccionario)
+            {
+                WriteLine($"Key: {keyValPair.Key} Valor: {keyValPair.Value}");
+            }
+
+            var dictmp = engine.GetDictionaryObject();
+
+            engine.PrintDictionary(dictmp, true);
+
+
+        }
+
+        private static void EventAction(object sender, EventArgs e)
+        {
+            Printer.WriteTitle("SALIENDO");
+            Printer.Beep(3000, 1000, 3);
+            Printer.WriteTitle("SALIO");
         }
 
         private static void ImprimirCursosEscuela(Escuela escuela)
