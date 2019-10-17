@@ -16,20 +16,33 @@ namespace CorEscuela.Entities
             dictionary = dictionaryObjEscuela;
         }
 
-        public IEnumerable<Escuela> GetEvaluationList()
+        public IEnumerable<Evaluacion> GetEvaluationList()
         {
-            IEnumerable<Escuela> response;
-            if (dictionary.TryGetValue(LlaveDiccionario.Escuela, out IEnumerable<ObjetoEscuelaBase> list))
+            if (dictionary.TryGetValue(LlaveDiccionario.Evaluaciones, out IEnumerable<ObjetoEscuelaBase> list))
             {
-                response = list.Cast<Escuela>();
+                return list.Cast<Evaluacion>();
             }
             else
             {
-                response = null;
+                return null;
 
                 //Escribir en el log de auditoria
             }
-            return list.Cast<Escuela>();
+        }
+
+        public IEnumerable<string> GetAsignaturaList()
+        {
+            var listEval = GetEvaluationList();
+
+            return (from Evaluacion ev in listEval
+                    select ev.Asignatura.Nombre).Distinct();
+        }
+
+        public Dictionary<string,IEnumerable<Evaluacion>> GetDictionaryEvaluaXAsig()
+        {
+            Dictionary<string, IEnumerable<Evaluacion>> dictionaryRespuesta = new Dictionary<string, IEnumerable<Evaluacion>>();
+
+            return dictionaryRespuesta;
         }
     }
 }

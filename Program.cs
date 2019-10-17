@@ -22,7 +22,8 @@ namespace CorEscuela
             Printer.WriteTitle("BIENVENIDOS A LA ESCUELA");
 
             var reporteador = new Reporteador(engine.GetDictionaryObject());
-            reporteador.GetEvaluationList();
+            var evalList = reporteador.GetEvaluationList();
+            var listaAsig = reporteador.GetAsignaturaList();
 
 
         }
