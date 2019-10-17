@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using CorEscuela.Entities.Enum;
 
 namespace CorEscuela.Entities
@@ -15,9 +16,20 @@ namespace CorEscuela.Entities
             dictionary = dictionaryObjEscuela;
         }
 
-        public IEnumerable<Evaluacion> GetEvaluationList()
+        public IEnumerable<Escuela> GetEvaluationList()
         {
-            dictionary[LlaveDiccionario.Evaluaciones];
+            IEnumerable<Escuela> response;
+            if (dictionary.TryGetValue(LlaveDiccionario.Escuela, out IEnumerable<ObjetoEscuelaBase> list))
+            {
+                response = list.Cast<Escuela>();
+            }
+            else
+            {
+                response = null;
+
+                //Escribir en el log de auditoria
+            }
+            return list.Cast<Escuela>();
         }
     }
 }

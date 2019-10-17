@@ -187,7 +187,7 @@ namespace CorEscuela.App
 
             var dictionary = new Dictionary<LlaveDiccionario, IEnumerable<ObjetoEscuelaBase>>();
 
-            dictionary.Add(LlaveDiccionario.Escuela, new[] { Escuela });
+             dictionary.Add(LlaveDiccionario.Escuela, new[] { Escuela });
 
             dictionary.Add(LlaveDiccionario.Cursos, Escuela.Cursos.Cast<ObjetoEscuelaBase>());
             var tempList = new List<Evaluacion>();
