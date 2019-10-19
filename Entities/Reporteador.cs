@@ -64,24 +64,22 @@ namespace CorEscuela.Entities
 
         public Dictionary<string, IEnumerable<object>> GetPromeStudentByAsignature()
         {
-            var request = new Dictionary<string,IEnumerable<object>>();
+            var request = new Dictionary<string, IEnumerable<object>>();
             var dicEvalXAsig = GetDictionaryEvaluaXAsig();
 
             foreach (var asignatureConEval in dicEvalXAsig)
             {
                 var dummy = from eval in asignatureConEval.Value
-                            select new{
+                            select new
+                            {
                                 eval.Alumno.UniqueId,
                                 AlumnoNombre = eval.Alumno.Nombre,
                                 NombreEval = eval.Nombre,
                                 eval.Nota
                             };
 
-                foreach(var item in dummy){
-                    
-                }
             }
-            
+
             return request;
         }
     }
