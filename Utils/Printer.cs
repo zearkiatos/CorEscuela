@@ -19,11 +19,23 @@ namespace CorEscuela.Utils
 
         public static void Beep(int hz = 2000, int time = 500, int qty = 1)
         {
-            while (qty > 0)
+            try
             {
-                Console.Beep(hz, time);
-                qty--;
+                while (qty > 0)
+                {
+                    Console.Beep(hz, time);
+                    qty--;
+                }
             }
+            catch (PlatformNotSupportedException ex)
+            {
+                Console.WriteLine($"{ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"{ex.Message}");
+            }
+
         }
     }
 }

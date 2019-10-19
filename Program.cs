@@ -24,6 +24,7 @@ namespace CorEscuela
             var reporteador = new Reporteador(engine.GetDictionaryObject());
             var evalList = reporteador.GetEvaluationList();
             var listaAsig = reporteador.GetAsignaturaList();
+            var listaEvaluaciones = reporteador.GetDictionaryEvaluaXAsig();
 
 
         }

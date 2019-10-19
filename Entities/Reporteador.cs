@@ -30,19 +30,59 @@ namespace CorEscuela.Entities
             }
         }
 
-        public IEnumerable<string> GetAsignaturaList()
+        public IEnumerable<string> GetAsignaturaList(out IEnumerable<Evaluacion> listEval)
         {
-            var listEval = GetEvaluationList();
+            listEval = GetEvaluationList();
 
             return (from Evaluacion ev in listEval
                     select ev.Asignatura.Nombre).Distinct();
         }
 
-        public Dictionary<string,IEnumerable<Evaluacion>> GetDictionaryEvaluaXAsig()
+        public IEnumerable<string> GetAsignaturaList()
         {
-            Dictionary<string, IEnumerable<Evaluacion>> dictionaryRespuesta = new Dictionary<string, IEnumerable<Evaluacion>>();
+            return GetAsignaturaList(out var dummy);
+        }
+
+        public Dictionary<string, IEnumerable<Evaluacion>> GetDictionaryEvaluaXAsig()
+        {
+            var dictionaryRespuesta = new Dictionary<string, IEnumerable<Evaluacion>>();
+
+            var listAsig = GetAsignaturaList(out var listEval);
+
+            foreach (var asignatura in listAsig)
+            {
+                var evalsAsig = from eval in listEval
+                                where eval.Asignatura.Nombre == asignatura
+                                select eval;
+                dictionaryRespuesta.Add(asignatura, evalsAsig);
+            }
+
+
 
             return dictionaryRespuesta;
+        }
+
+        public Dictionary<string, IEnumerable<object>> GetPromeStudentByAsignature()
+        {
+            var request = new Dictionary<string,IEnumerable<object>>();
+            var dicEvalXAsig = GetDictionaryEvaluaXAsig();
+
+            foreach (var asignatureConEval in dicEvalXAsig)
+            {
+                var dummy = from eval in asignatureConEval.Value
+                            select new{
+                                eval.Alumno.UniqueId,
+                                AlumnoNombre = eval.Alumno.Nombre,
+                                NombreEval = eval.Nombre,
+                                eval.Nota
+                            };
+
+                foreach(var item in dummy){
+                    
+                }
+            }
+            
+            return request;
         }
     }
 }
