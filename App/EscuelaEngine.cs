@@ -187,7 +187,7 @@ namespace CorEscuela.App
 
             var dictionary = new Dictionary<LlaveDiccionario, IEnumerable<ObjetoEscuelaBase>>();
 
-            dictionary.Add(LlaveDiccionario.Escuela, new[] { Escuela });
+             dictionary.Add(LlaveDiccionario.Escuela, new[] { Escuela });
 
             dictionary.Add(LlaveDiccionario.Cursos, Escuela.Cursos.Cast<ObjetoEscuelaBase>());
             var tempList = new List<Evaluacion>();
@@ -205,7 +205,7 @@ namespace CorEscuela.App
             }
             dictionary.Add(LlaveDiccionario.Asignaturas, tempListAsignatura.Cast<ObjetoEscuelaBase>());
             dictionary.Add(LlaveDiccionario.Alumnos, tempListAlumno.Cast<ObjetoEscuelaBase>());
-            dictionary.Add(LlaveDiccionario.Evaluaciones, tempList.Cast<ObjetoEscuelaBase>());
+            dictionary.Add(LlaveDiccionario.Evaluacion, tempList.Cast<ObjetoEscuelaBase>());
             return dictionary;
         }
 
@@ -219,7 +219,7 @@ namespace CorEscuela.App
                 {
                     switch (obj.Key)
                     {
-                        case LlaveDiccionario.Evaluaciones:
+                        case LlaveDiccionario.Evaluacion:
                             if (printEvaluacion)
                                 Console.WriteLine(val);
                             break;
