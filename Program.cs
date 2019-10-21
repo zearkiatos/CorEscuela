@@ -84,6 +84,11 @@ namespace CorEscuela
                     Printer.WriteTitle("El valor del nota no es un número valido.");
                     WriteLine("Saliendo del Programa");
                 }
+                finally
+                {
+                    Printer.WriteTitle("Finally");
+                    Printer.Beep(2500, 500, 3);
+                }
 
             }
 
