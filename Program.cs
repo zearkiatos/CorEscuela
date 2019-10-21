@@ -29,13 +29,65 @@ namespace CorEscuela
 
             var listAverageTop = reporteador.GetAverageTopByMatter();
 
-            foreach (var item in listAverageByAsignature)
+            Printer.WriteTitle("Captura de una Evaluación por Consola");
+            var newEval = new Evaluacion();
+
+            string nombre;
+            float nota;
+
+            WriteLine("Ingrese el nombre de la evaluación");
+
+            Printer.PressEnter();
+
+            nombre = Console.ReadLine();
+
+            if (string.IsNullOrEmpty(nombre))
             {
-                foreach (var student in item.Value)
-                {
-                    var tmp = student as Alumno;
-                }
+                Printer.WriteTitle("El valor del nombre no puede ser vacío");
             }
+            else
+            {
+                newEval.Nombre = nombre.ToLower();
+
+                WriteLine("El nombre de la evaluación ha sido ingresado correctamente");
+            }
+
+            WriteLine("Ingrese el nota de la evaluación");
+
+            Printer.PressEnter();
+
+            string notastring = Console.ReadLine();
+
+            if (string.IsNullOrEmpty(notastring))
+            {
+                Printer.WriteTitle("El valor del nota no puede ser vacío");
+                WriteLine("Saliendo del Programa");
+            }
+            else
+            {
+                try
+                {
+                    newEval.Nota = float.Parse(notastring);
+                    if (newEval.Nota < 0 || newEval.Nota > 5)
+                    {
+                        throw new ArgumentOutOfRangeException("La nota debe estar entre 0 y 5");
+                    }
+                    WriteLine("El nota de la evaluación ha sido ingresado correctamente");
+                }
+                catch (ArgumentOutOfRangeException arge)
+                {
+                    WriteLine(arge.Message);
+                    WriteLine("Saliendo del Programa");
+                }
+                catch (Exception e)
+                {
+                    Printer.WriteTitle("El valor del nota no es un número valido.");
+                    WriteLine("Saliendo del Programa");
+                }
+
+            }
+
+
 
 
         }
