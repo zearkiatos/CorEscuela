@@ -34,7 +34,7 @@ namespace CorEscuela.Entities
         {
             listEval = GetEvaluationList();
             var eval = (from Evaluacion ev in listEval
-                    select ev.Asignatura.Nombre).Distinct();
+                        select ev.Asignatura.Nombre).Distinct();
             return eval;
         }
 
@@ -71,22 +71,31 @@ namespace CorEscuela.Entities
             foreach (var asignatureConEval in dicEvalXAsig)
             {
                 var averageStudent = from eval in asignatureConEval.Value
-                            group eval by new {
-                                eval.Alumno.UniqueId,
-                                eval.Alumno.Nombre
+                                     group eval by new
+                                     {
+                                         eval.Alumno.UniqueId,
+                                         eval.Alumno.Nombre
 
-                            }
+                                     }
                             into evalStudentGroup
-                            select new AlumnoPromedio
-                            {
-                                AlumnoId = evalStudentGroup.Key.UniqueId,
-                                AlumnoNombre = evalStudentGroup.Key.Nombre,
-                                Promedio = evalStudentGroup.Average(e=>e.Nota)
-                            };
-                request.Add(asignatureConEval.Key,averageStudent);
+                                     select new AlumnoPromedio
+                                     {
+                                         AlumnoId = evalStudentGroup.Key.UniqueId,
+                                         AlumnoNombre = evalStudentGroup.Key.Nombre,
+                                         Promedio = evalStudentGroup.Average(e => e.Nota)
+                                     };
+                request.Add(asignatureConEval.Key, averageStudent);
             }
 
             return request;
+        }
+
+        public IOrderedEnumerable<AlumnoPromedio> GetAverageTopByMatter(int top=5)
+        {
+             var request = new Dictionary<string, IEnumerable<object>>();
+
+
+            return GetPromeStudentByAsignature().Cast<AlumnoPromedio>().Take(top).OrderByDescending(x=>x.Promedio);
         }
     }
 }
