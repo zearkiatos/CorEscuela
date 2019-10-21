@@ -37,5 +37,10 @@ namespace CorEscuela.Utils
             }
 
         }
+
+        public static void PressEnter()
+        {
+            WriteLine("Presione enter para continuar");
+        }
     }
 }

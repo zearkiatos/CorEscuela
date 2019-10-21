@@ -90,12 +90,31 @@ namespace CorEscuela.Entities
             return request;
         }
 
-        public IOrderedEnumerable<AlumnoPromedio> GetAverageTopByMatter(int top=5)
+        public Dictionary<string, IEnumerable<object>> GetAverageTopByMatter(int top=5)
         {
-             var request = new Dictionary<string, IEnumerable<object>>();
+            var request = new Dictionary<string, IEnumerable<object>>();
+            var dicEvalXAsig = GetDictionaryEvaluaXAsig();
+            foreach (var asignatureConEval in dicEvalXAsig)
+            {
+                var averageStudent = (from eval in asignatureConEval.Value
+                                     group eval by new
+                                     {
+                                         eval.Alumno.UniqueId,
+                                         eval.Alumno.Nombre,
+                                         eval.Asignatura
 
+                                     }
+                            into evalStudentGroup
+                                     select new AlumnoPromedio
+                                     {
+                                         AlumnoId = evalStudentGroup.Key.UniqueId,
+                                         AlumnoNombre = evalStudentGroup.Key.Nombre,
+                                         Promedio = evalStudentGroup.Average(e => e.Nota)
+                                     }).Take(top).OrderByDescending(x=>x.Promedio);
+                request.Add(asignatureConEval.Key, averageStudent);
+            }
 
-            return GetPromeStudentByAsignature().Cast<AlumnoPromedio>().Take(top).OrderByDescending(x=>x.Promedio);
+            return request;
         }
     }
 }
