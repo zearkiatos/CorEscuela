@@ -5,7 +5,7 @@ namespace CorEscuela.Entities.Enum
         Cursos,
         Alumnos,
         Asignaturas,
-        Evaluaciones,
+        Evaluacion,
 
         Escuela
         

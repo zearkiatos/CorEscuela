@@ -18,13 +18,13 @@ namespace CorEscuela.Entities
 
         public IEnumerable<Evaluacion> GetEvaluationList()
         {
-            if (dictionary.TryGetValue(LlaveDiccionario.Evaluaciones, out IEnumerable<ObjetoEscuelaBase> list))
+            if (dictionary.TryGetValue(LlaveDiccionario.Evaluacion, out IEnumerable<ObjetoEscuelaBase> list))
             {
                 return list.Cast<Evaluacion>();
             }
             else
             {
-                return null;
+                return new List<Evaluacion>();
 
                 //Escribir en el log de auditoria
             }
@@ -33,10 +33,11 @@ namespace CorEscuela.Entities
         public IEnumerable<string> GetAsignaturaList(out IEnumerable<Evaluacion> listEval)
         {
             listEval = GetEvaluationList();
-
-            return (from Evaluacion ev in listEval
+            var eval = (from Evaluacion ev in listEval
                     select ev.Asignatura.Nombre).Distinct();
+            return eval;
         }
+
 
         public IEnumerable<string> GetAsignaturaList()
         {
@@ -69,15 +70,20 @@ namespace CorEscuela.Entities
 
             foreach (var asignatureConEval in dicEvalXAsig)
             {
-                var dummy = from eval in asignatureConEval.Value
-                            group eval by eval.Alumno.UniqueId
-                            into evalStudentGroup
-                            select new
-                            {
-                                StudentId = evalStudentGroup.Key,
-                                Average = evalStudentGroup.Average(e => e.Nota)
-                            };
+                var averageStudent = from eval in asignatureConEval.Value
+                            group eval by new {
+                                eval.Alumno.UniqueId,
+                                eval.Alumno.Nombre
 
+                            }
+                            into evalStudentGroup
+                            select new AlumnoPromedio
+                            {
+                                AlumnoId = evalStudentGroup.Key.UniqueId,
+                                AlumnoNombre = evalStudentGroup.Key.Nombre,
+                                Promedio = evalStudentGroup.Average(e=>e.Nota)
+                            };
+                request.Add(asignatureConEval.Key,averageStudent);
             }
 
             return request;
