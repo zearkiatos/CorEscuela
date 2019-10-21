@@ -70,12 +70,12 @@ namespace CorEscuela.Entities
             foreach (var asignatureConEval in dicEvalXAsig)
             {
                 var dummy = from eval in asignatureConEval.Value
+                            group eval by eval.Alumno.UniqueId
+                            into evalStudentGroup
                             select new
                             {
-                                eval.Alumno.UniqueId,
-                                AlumnoNombre = eval.Alumno.Nombre,
-                                NombreEval = eval.Nombre,
-                                eval.Nota
+                                StudentId = evalStudentGroup.Key,
+                                Average = evalStudentGroup.Average(e => e.Nota)
                             };
 
             }

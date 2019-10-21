@@ -25,6 +25,7 @@ namespace CorEscuela
             var evalList = reporteador.GetEvaluationList();
             var listaAsig = reporteador.GetAsignaturaList();
             var listaEvaluaciones = reporteador.GetDictionaryEvaluaXAsig();
+            var listAverageByAsignature = reporteador.GetPromeStudentByAsignature();
 
 
         }
