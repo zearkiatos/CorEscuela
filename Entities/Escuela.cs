@@ -1,26 +1,29 @@
 using System;
 using System.Collections.Generic;
 using CorEscuela.Entities.Enum;
+using CorEscuela.Entities.Interfaces;
+using CorEscuela.Utils;
 
 namespace CorEscuela.Entities
 {
-    public class Escuela
+    public class Escuela : ObjetoEscuelaBase, ILugar
     {
-        public string UniqueId { get; private set; } = Guid.NewGuid().ToString();
-        private string nombre;
-
-        public string Nombre
+        public Escuela(int anioDeCreacion, string pais, string ciudad, string direccion, TipoEscuelas tipoEscuela)
         {
-            get { return nombre; }
+            this.AnioDeCreacion = anioDeCreacion;
+            this.Pais = pais;
+            this.Ciudad = ciudad;
+            this.Direccion = direccion;
+            this.TipoEscuela = tipoEscuela;
 
-            set { nombre = value.ToUpper(); }
         }
-
         public int AnioDeCreacion { get; set; }
 
         public string Pais { get; set; }
 
         public string Ciudad { get; set; }
+
+        public string Direccion { get; set; }
 
 
         public TipoEscuelas TipoEscuela { get; set; }
@@ -42,6 +45,31 @@ namespace CorEscuela.Entities
             return $"Nombre: \"{Nombre}\" , Tipo: {TipoEscuela} \n Pais: {System.Environment.NewLine} {Pais}, Ciudad: {Ciudad}";
         }
 
+        public void LimpiarLugar()
+        {
+            Printer.DrawLine();
+            Console.WriteLine("Limpiando Escuela...");
+            try
+            {
+                Printer.Beep(1000, qty: 3);
+            }
+            catch (PlatformNotSupportedException ex)
+            {
+                Console.WriteLine($"{ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"{ex.Message}");
+            }
+            finally
+            {
+                foreach (var curso in Cursos)
+                {
+                    curso.LimpiarLugar();
+                }
+                Printer.WriteTitle($"Escuela {Nombre} esta Limpio");
+            }
 
+        }
     }
 }

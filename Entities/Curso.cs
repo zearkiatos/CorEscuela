@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
 using CorEscuela.Entities.Enum;
+using CorEscuela.Entities.Interfaces;
+using CorEscuela.Utils;
 
 namespace CorEscuela.Entities
 {
-    public class Curso
+    public class Curso : ObjetoEscuelaBase, ILugar
     {
-        
-        public string UniqueId { get; private set; }
-        public string Nombre { get; set; }
 
         public TipoJornadas Jornada { get; set; }
 
@@ -16,6 +15,13 @@ namespace CorEscuela.Entities
 
         public List<Alumno> Alumnos { get; set; }
 
-        public Curso()=>(UniqueId) = (Guid.NewGuid().ToString());
+        public string Direccion { get; set; }
+
+        public void LimpiarLugar()
+        {
+            Printer.DrawLine();
+            Console.WriteLine("Limpiando Curso...");
+            Console.WriteLine($"Curso {Nombre} esta Limpio");
+        }
     }
 }
