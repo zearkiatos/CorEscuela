@@ -8,6 +8,7 @@ namespace CorEscuela.Entities
     public class Reporteador
     {
         Dictionary<LlaveDiccionario, IEnumerable<ObjetoEscuelaBase>> dictionary;
+
         public Reporteador(Dictionary<LlaveDiccionario, IEnumerable<ObjetoEscuelaBase>> dictionaryObjEscuela)
         {
             if (dictionaryObjEscuela == null)

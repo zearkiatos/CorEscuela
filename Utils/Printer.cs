@@ -42,5 +42,24 @@ namespace CorEscuela.Utils
         {
             WriteLine("Presione enter para continuar");
         }
+
+        public static int PrintMenu(string[] options, string menuName)
+        {
+            WriteTitle(menuName);
+            DrawLine(menuName.Length);
+            for (var i = 0; i < options.Length; i++)
+            {
+                Console.WriteLine($"{i + 1}.- {options[i]}");
+            }
+            DrawLine();
+            WriteLine("Por favor seleccione una opción del Menú para continuar");
+
+            int result = Console.ReadLine();
+
+            if((result+1)>options.Length){
+                Console.WriteLine("Menú no valido");
+                Console.ReadLine();
+            }
+        }
     }
 }

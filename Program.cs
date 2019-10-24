@@ -29,68 +29,73 @@ namespace CorEscuela
 
             var listAverageTop = reporteador.GetAverageTopByMatter();
 
-            Printer.WriteTitle("Captura de una Evaluación por Consola");
-            var newEval = new Evaluacion();
+            
+            string[] reporteMenu = engine.GetReportMenu();
 
-            string nombre;
-            float nota;
+            Printer.PrintMenu(reporteMenu,"Menú Core Escuela");
 
-            WriteLine("Ingrese el nombre de la evaluación");
+            // Printer.WriteTitle("Captura de una Evaluación por Consola");
+            // var newEval = new Evaluacion();
 
-            Printer.PressEnter();
+            // string nombre;
+            // float nota;
 
-            nombre = Console.ReadLine();
+            // WriteLine("Ingrese el nombre de la evaluación");
 
-            if (string.IsNullOrEmpty(nombre))
-            {
-                Printer.WriteTitle("El valor del nombre no puede ser vacío");
-            }
-            else
-            {
-                newEval.Nombre = nombre.ToLower();
+            // Printer.PressEnter();
 
-                WriteLine("El nombre de la evaluación ha sido ingresado correctamente");
-            }
+            // nombre = Console.ReadLine();
 
-            WriteLine("Ingrese el nota de la evaluación");
+            // if (string.IsNullOrEmpty(nombre))
+            // {
+            //     Printer.WriteTitle("El valor del nombre no puede ser vacío");
+            // }
+            // else
+            // {
+            //     newEval.Nombre = nombre.ToLower();
 
-            Printer.PressEnter();
+            //     WriteLine("El nombre de la evaluación ha sido ingresado correctamente");
+            // }
 
-            string notastring = Console.ReadLine();
+            // WriteLine("Ingrese el nota de la evaluación");
 
-            if (string.IsNullOrEmpty(notastring))
-            {
-                Printer.WriteTitle("El valor del nota no puede ser vacío");
-                WriteLine("Saliendo del Programa");
-            }
-            else
-            {
-                try
-                {
-                    newEval.Nota = float.Parse(notastring);
-                    if (newEval.Nota < 0 || newEval.Nota > 5)
-                    {
-                        throw new ArgumentOutOfRangeException("La nota debe estar entre 0 y 5");
-                    }
-                    WriteLine("El nota de la evaluación ha sido ingresado correctamente");
-                }
-                catch (ArgumentOutOfRangeException arge)
-                {
-                    WriteLine(arge.Message);
-                    WriteLine("Saliendo del Programa");
-                }
-                catch (Exception e)
-                {
-                    Printer.WriteTitle("El valor del nota no es un número valido.");
-                    WriteLine("Saliendo del Programa");
-                }
-                finally
-                {
-                    Printer.WriteTitle("Finally");
-                    Printer.Beep(2500, 500, 3);
-                }
+            // Printer.PressEnter();
 
-            }
+            // string notastring = Console.ReadLine();
+
+            // if (string.IsNullOrEmpty(notastring))
+            // {
+            //     Printer.WriteTitle("El valor del nota no puede ser vacío");
+            //     WriteLine("Saliendo del Programa");
+            // }
+            // else
+            // {
+            //     try
+            //     {
+            //         newEval.Nota = float.Parse(notastring);
+            //         if (newEval.Nota < 0 || newEval.Nota > 5)
+            //         {
+            //             throw new ArgumentOutOfRangeException("La nota debe estar entre 0 y 5");
+            //         }
+            //         WriteLine("El nota de la evaluación ha sido ingresado correctamente");
+            //     }
+            //     catch (ArgumentOutOfRangeException arge)
+            //     {
+            //         WriteLine(arge.Message);
+            //         WriteLine("Saliendo del Programa");
+            //     }
+            //     catch (Exception e)
+            //     {
+            //         Printer.WriteTitle("El valor del nota no es un número valido.");
+            //         WriteLine("Saliendo del Programa");
+            //     }
+            //     finally
+            //     {
+            //         Printer.WriteTitle("Finally");
+            //         Printer.Beep(2500, 500, 3);
+            //     }
+
+            // }
 
 
 
