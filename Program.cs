@@ -32,7 +32,9 @@ namespace CorEscuela
             
             string[] reporteMenu = engine.GetReportMenu();
 
-            Printer.PrintMenu(reporteMenu,"Menú Core Escuela");
+            var menuOption = Printer.PrintMenu(reporteMenu,"Menú Core Escuela");
+
+            reporteador.PrintReport(menuOption);
 
             // Printer.WriteTitle("Captura de una Evaluación por Consola");
             // var newEval = new Evaluacion();

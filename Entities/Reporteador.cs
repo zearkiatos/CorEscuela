@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CorEscuela.Entities.Enum;
+using CorEscuela.Utils;
 
 namespace CorEscuela.Entities
 {
@@ -91,31 +92,70 @@ namespace CorEscuela.Entities
             return request;
         }
 
-        public Dictionary<string, IEnumerable<object>> GetAverageTopByMatter(int top=5)
+        public Dictionary<string, IEnumerable<object>> GetAverageTopByMatter(int top = 5)
         {
             var request = new Dictionary<string, IEnumerable<object>>();
             var dicEvalXAsig = GetDictionaryEvaluaXAsig();
             foreach (var asignatureConEval in dicEvalXAsig)
             {
                 var averageStudent = (from eval in asignatureConEval.Value
-                                     group eval by new
-                                     {
-                                         eval.Alumno.UniqueId,
-                                         eval.Alumno.Nombre,
-                                         eval.Asignatura
+                                      group eval by new
+                                      {
+                                          eval.Alumno.UniqueId,
+                                          eval.Alumno.Nombre,
+                                          eval.Asignatura
 
-                                     }
+                                      }
                             into evalStudentGroup
-                                     select new AlumnoPromedio
-                                     {
-                                         AlumnoId = evalStudentGroup.Key.UniqueId,
-                                         AlumnoNombre = evalStudentGroup.Key.Nombre,
-                                         Promedio = evalStudentGroup.Average(e => e.Nota)
-                                     }).Take(top).OrderByDescending(x=>x.Promedio);
+                                      select new AlumnoPromedio
+                                      {
+                                          AlumnoId = evalStudentGroup.Key.UniqueId,
+                                          AlumnoNombre = evalStudentGroup.Key.Nombre,
+                                          Promedio = evalStudentGroup.Average(e => e.Nota)
+                                      }).Take(top).OrderByDescending(x => x.Promedio);
                 request.Add(asignatureConEval.Key, averageStudent);
             }
 
             return request;
         }
+
+        public void PrintReport(int reportedSelected)
+        {
+            Printer.DrawLine();
+            switch (reportedSelected)
+            {
+                case 1:
+                    foreach (var item in this.GetEvaluationList())
+                    {
+                        Console.WriteLine($"Alumno: {item.Alumno.Nombre} | {item.Nombre} Nota: {item.Nota}");
+                    }
+
+                    break;
+                case 2:
+                    foreach (var item in this.GetAsignaturaList())
+                    {
+                        Console.WriteLine($"Nombre: {item}");
+                    }
+
+                    break;
+                case 3:
+                    foreach (var asignatura in this.GetDictionaryEvaluaXAsig())
+                    {
+                        Printer.WriteTitle(asignatura.Key);
+                        foreach (var evaluacion in asignatura.Value)
+                        {
+                            Console.WriteLine($"Alumno: {evaluacion.Alumno.Nombre} | {evaluacion.Nombre} Nota: {evaluacion.Nota}");
+                        }
+                        Printer.DrawLine();
+                    }
+
+                    break;
+                case 4:
+
+
+                    break;
+            }
+        }
+
     }
 }
