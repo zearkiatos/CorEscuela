@@ -38,9 +38,6 @@ namespace CorEscuela
             }
             while (keep.ToUpper() == "Y");
 
-
-
-
         }
 
         private static void EventAction(object sender, EventArgs e)
