@@ -17,6 +17,8 @@ namespace CorEscuela.App
             this.Inicializate();
         }
 
+        private string[] ReportList { get; set; }
+
         public void Inicializate()
         {
             Escuela = new Escuela("Escuela Platzi", 2006, TipoEscuelas.PreEscolar, pais: "Colombia", ciudad: "Bogotá");
@@ -27,9 +29,12 @@ namespace CorEscuela.App
 
             CargarEvaluaciones();
 
+            CargarMenuDeReportes();
+
 
 
         }
+
         #region Metodos de Carga
         private void CargarEvaluaciones(int qty = 5)
         {
@@ -122,7 +127,24 @@ namespace CorEscuela.App
             }
         }
 
+        private void CargarMenuDeReportes()
+        {
+            ReportList = new string[]{
+                "Lista de Evaluaciones",
+                "Lista de Asignaturas",
+                "Lista de Evaluaciones por Asignatura",
+                "Lista de Promedios por Asignatura",
+                "Top de Mejores promedio por Asignatura",
+                "Salir"
+
+            };
+        }
+
         #endregion
+
+        public string[] GetReportMenu(){
+            return this.ReportList;
+        }
 
 
         public IReadOnlyList<ObjetoEscuelaBase> GetObjetosEscuela(out int countEvaluations, out int countStudents, out int countAsignatures, out int countCourse,
@@ -187,7 +209,7 @@ namespace CorEscuela.App
 
             var dictionary = new Dictionary<LlaveDiccionario, IEnumerable<ObjetoEscuelaBase>>();
 
-             dictionary.Add(LlaveDiccionario.Escuela, new[] { Escuela });
+            dictionary.Add(LlaveDiccionario.Escuela, new[] { Escuela });
 
             dictionary.Add(LlaveDiccionario.Cursos, Escuela.Cursos.Cast<ObjetoEscuelaBase>());
             var tempList = new List<Evaluacion>();
@@ -245,5 +267,6 @@ namespace CorEscuela.App
                 }
             }
         }
+
     }
 }
