@@ -119,7 +119,7 @@ namespace CorEscuela.Entities
             return request;
         }
 
-        public void PrintReport(int reportedSelected)
+        public string PrintReport(int reportedSelected)
         {
             Printer.DrawLine();
             switch (reportedSelected)
@@ -151,10 +151,49 @@ namespace CorEscuela.Entities
 
                     break;
                 case 4:
-
+                    foreach (var asignatura in this.GetPromeStudentByAsignature())
+                    {
+                        Printer.WriteTitle($"Promedios {asignatura.Key}");
+                        foreach (var average in asignatura.Value.Cast<AlumnoPromedio>())
+                        {
+                            Console.WriteLine($"Alumno: {average.AlumnoNombre} | Promedio: {average.Promedio}");
+                        }
+                    }
 
                     break;
+                case 5:
+                    Printer.WriteTitle("Top de mejores promedios");
+                    Console.WriteLine("Por favor ingrese el maximo de mejores promedios que quieres que se liste");
+                    var top = Console.ReadLine();
+                    if (!string.IsNullOrEmpty(top))
+                    {
+                        var topList = this.GetAverageTopByMatter(int.Parse(top));
+                        foreach (var matterAvg in topList)
+                        {
+                            Printer.WriteTitle($"Promedios {matterAvg.Key}");
+                            foreach (var average in matterAvg.Value.Cast<AlumnoPromedio>())
+                            {
+                                Console.WriteLine($"Alumno: {average.AlumnoNombre} | Promedio: {average.Promedio}");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Error Parametro top vacio, debe ser ingresado, pulse cualquier tecla para continuar");
+                        Console.ReadKey();
+                        Console.Clear();
+
+                    }
+
+                    break;
+                case 6:
+                    Environment.Exit(0);
+                    break;
             }
+            Printer.DrawLine(50);
+            Console.WriteLine("¿Desea Continuar? Pulse [Y] si desea continuar o cualquier tecla si no lo desea. ");
+            var response = Console.ReadLine();
+            return response.ToString();
         }
 
     }

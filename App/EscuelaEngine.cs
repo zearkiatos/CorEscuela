@@ -135,7 +135,6 @@ namespace CorEscuela.App
                 "Lista de Evaluaciones por Asignatura",
                 "Lista de Promedios por Asignatura",
                 "Top de Mejores promedio por Asignatura",
-                "Captura de una Evaluación",
                 "Salir"
 
             };
